@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  flask:
+    build: .
+    image: flask_docker
+    volumes:
+      - data:/flask
+    expose:
+      - "5000"
+    networks:
+      - web
+
+  nginx:
+    build: nginx/.
+    volumes:
+      - data:/flask:ro
+    ports:
+      - "80:80"
+    networks:
+      - web
+
+volumes:
+  data:
+
+networks:
+  web:
